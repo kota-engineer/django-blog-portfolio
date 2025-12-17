@@ -1,0 +1,31 @@
+
+/* ページ全体の背景色とフォント */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* 見出し */
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* 記事カード */
+.post {
+    background-color: #fff;
+    padding: 16px;
+    margin: 16px auto;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+/* 記事タイトル */
+.post h2 {
+    color: #555;
+}
+
+/* 記事本文 */
+.post p {
+    line-height: 1.5;
+}

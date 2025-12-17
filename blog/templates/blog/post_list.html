@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>記事一覧</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+    <h1>記事一覧</h1>
+    {% for post in posts %}
+      <div class="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+        <p class="date">最終更新日: {{ post.updated_at|date:"Y-m-d H:i" }}</p>
+      </div>  
+    {% empty %}
+      <p>記事はまだありません。</p>
+    {% endfor %}
+</body>
+</html>
+
+
