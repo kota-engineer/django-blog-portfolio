@@ -4,20 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <title>記事一覧</title>
+    <!-- CSSを読み込み -->
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 </head>
 <body>
+    <!-- ナビゲーションバー: サイト内のページリンク -->
+    <nav>
+        <a href="{% url 'post_list' %}">記事一覧</a>
+        <a href="{% url 'profile' %}">プロフィール</a>
+        <a href="{% url 'category_list' %}">カテゴリ</a>
+    </nav>
+
+    <!-- ページタイトル -->
     <h1>記事一覧</h1>
+
+        <!-- 検索フォーム: 記事タイトルや本文で検索 -->
+    <form method="get" action="{% url 'post_list' %}">
+        <!-- q パラメータで検索キーワードを取得 -->
+        <input type="text" name="q" placeholder="キーワードで検索" value="{{ request.GET.q }}">
+        <button type="submit">検索</button>
+    </form>
+
+    <!-- カテゴリフィルター: GETパラメータ 'category' を使う場合 -->
+    <form method="get" action="{% url 'post_list' %}">
+        <select name="category">
+            <option value="">カテゴリを選択</option>
+            {% for cat in categories %}
+              <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                {{ cat.name }}
+              </option>
+            {% endfor %}
+        </select>
+        <button type="submit">絞り込み</button>
+    </form>
+
+    <!-- 記事一覧をループで表示 -->
     {% for post in posts %}
       <div class="post">
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.body }}</p>
-        <p class="date">最終更新日: {{ post.updated_at|date:"Y-m-d H:i" }}</p>
+            <!-- 投稿者のアバター表示 -->
+            {% if post.author.profile.avatar %}
+              <!-- アバター画像がある場合は表示 -->
+              <img src="{{ post.author.profile.avatar.url }}" alt="プロフィール画像" class="avatar">
+            {% else %}
+              <!-- アバターが未設定の場合はデフォルト画像を表示 -->
+              <img src="{% static 'blog/images/default_avatar.png' %}" alt="デフォルト画像" class="avatar">
+            {% endif %}
+
+            <!-- 記事タイトル -->
+            <h2>{{ post.title }}</h2>
+            <!-- 記事本文 -->
+            <p>{{ post.body }}</p>
+            <!-- 更新日時 -->
+            <p class="date">最終更新日: {{ post.updated_at|date:"Y-m-d H:i" }}</p>
       </div>  
     {% empty %}
+      <!-- 記事が存在しない場合のメッセージ -->
       <p>記事はまだありません。</p>
     {% endfor %}
 </body>
 </html>
+
+
 
 

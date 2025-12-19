@@ -29,3 +29,18 @@ h1 {
 .post p {
     line-height: 1.5;
 }
+
+/* style.css */
+.post {
+  width: 48%;
+  float: left;
+  margin: 1%;
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    width: 100%;
+    float: none;
+    margin: 0 0 20px 0;
+  }
+}

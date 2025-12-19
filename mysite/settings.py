@@ -30,7 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',  # 自作アプリ
+    'blog.apps.BlogConfig',
+    'accounts',
+    'django.contrib.sites', 
 ]
 
 # ミドルウェア設定
